@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Other App
     'rest_framework',
+    'drf_yasg',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # for debug:
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+# for debug:
+INTERNAL_IPS = ['127.0.0.1',]
 
 ROOT_URLCONF = 'main.urls'
 
