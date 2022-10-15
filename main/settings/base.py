@@ -32,10 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Other App
+    # Apps
+    'users',
+    # Other
     'rest_framework',
+    'rest_framework.authtoken', # need for dj_rest_auth
     'drf_yasg',
-    'debug_toolbar',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
