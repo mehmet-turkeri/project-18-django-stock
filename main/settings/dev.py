@@ -1,6 +1,7 @@
-from .base import *
+from .base import * 
 
-# on Test
+# on Test:
+
 DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -13,8 +14,8 @@ MIDDLEWARE += [
 ]
 
 # for debug:
-INTERNAL_IPS = [
-    '127.0.0.1',
+INTERNAL_IPS = [ 
+    "127.0.0.1", 
 ]
 
 # LOGS:
