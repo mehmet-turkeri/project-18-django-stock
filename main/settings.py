@@ -13,10 +13,10 @@ from decouple import config
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-
-# ALLOWED_HOSTS = []
-
+DEBUG = False
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'dj_rest_auth',
     'django_filters',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -74,9 +76,22 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'NAME': BASE_DIR / 'dev_db.sqlite3',
 #     }
 # }
+
+# PostgreSQL:
+DATABASES = { 
+    "default": { 
+        "ENGINE": "django.db.backends.postgresql_psycopg2", 
+        "NAME": config("POSTGRESQL_DATABASE"), 
+        "USER": config("POSTGRESQL_USER"), 
+        "PASSWORD": config("POSTGRESQL_PASSWORD"), 
+        "HOST": config("POSTGRESQL_HOST"), 
+        "PORT": config("POSTGRESQL_PORT"), 
+        "ATOMIC_REQUESTS": True, 
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -108,7 +123,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -126,4 +140,31 @@ REST_AUTH_SERIALIZERS = {
 REST_FRAMEWORK = {
     # Allow post-request without CSRF, so can connection with Token from external service, like Postman:
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication']
+}
+
+# LOGS:
+LOGGING = { 
+    "version": 1, 
+    "disable_existing_loggers": True, 
+    "formatters": { 
+        'detail': { 
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}', 
+            'style': '{', 
+        },
+    }, 
+    "handlers": { 
+        'file': { 
+            'class': 'logging.FileHandler', 
+            "formatter": "detail", 
+            'filename': './prod_logs.log', 
+            'level': 'INFO', 
+        }, 
+    }, 
+    "loggers": { 
+        "django": { 
+            "handlers": ['file'], 
+            "level": config("DJANGO_LOG_LEVEL", "INFO"), 
+            'propagate': True, 
+        }, 
+    }, 
 }
