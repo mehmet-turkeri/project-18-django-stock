@@ -29,11 +29,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Apps:
     'users',
+    'stock',
     # Other
     'rest_framework',
     'rest_framework.authtoken', # need for dj_rest_auth
     'drf_yasg',
     'dj_rest_auth',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

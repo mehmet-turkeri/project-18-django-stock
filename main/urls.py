@@ -7,11 +7,11 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view( 
     openapi.Info( 
-        title = "Flight Reservation API", 
+        title = "Stock Tracking API", 
         default_version = "v1",
-        description = "Flight Reservation API project provides flight and reservation info", 
+        description = "Stock Tracking API project allows you to track your stock amount, stock entry, stock issue.", 
         terms_of_service = "#", 
-        contact = openapi.Contact(email="rafe@clarusway.com"),
+        contact = openapi.Contact(email="mehmet@clarusway.com"),
         # Change e-mail on this line! 
         license = openapi.License(name="BSD License"), 
     ), 
@@ -27,6 +27,7 @@ urlpatterns = [
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     # for debug:
     path('__debug__/', include('debug_toolbar.urls')),
-    # go to users/:
+    # go to users and stock/:
     path('users/', include('users.urls')),
+    path('stock/', include('stock.urls')),
 ]
